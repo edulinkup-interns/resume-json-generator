@@ -618,4 +618,8 @@ footer span:first-child {
     padding-right: 18px;
     flex-wrap: wrap;
   }
+  input.invalid {
+  border: 1px solid #ef4444;
+  box-shadow: 0 0 0 1px #ef4444;
+}
 }
