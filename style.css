@@ -336,6 +336,16 @@ select:focus-visible {
   gap: 8px;
 }
 
+input.invalid {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 1px #ef4444;
+}
+
+.field input.invalid:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25);
+}
+
 .button {
   display: inline-flex;
   align-items: center;
@@ -618,4 +628,8 @@ footer span:first-child {
     padding-right: 18px;
     flex-wrap: wrap;
   }
+  input.invalid {
+  border: 1px solid #ef4444;
+  box-shadow: 0 0 0 1px #ef4444;
+}
 }
