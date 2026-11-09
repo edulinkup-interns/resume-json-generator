@@ -8,6 +8,7 @@
  <link rel="icon" type="image/png" href="favicon.png">
   <title>resume.json</title>
   <link rel="stylesheet" href="style.css">
+  <script src="countries.js" defer></script>
   <script src="script.js" defer></script>
 </head>
 <body>
@@ -16,9 +17,8 @@
       <img class="brand-logo" src="public/logo.png" alt="resume.json logo" width="40" height="40">
       <span>resume<span class="brand-accent">.json</span></span>
     </a>
-    <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to light theme">
+    <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to light theme" title="Switch to light theme">
       <span class="theme-icon" aria-hidden="true">☼</span>
-      <span id="theme-label">Light theme</span>
     </button>
   </header>
 
@@ -53,7 +53,11 @@
               </div>
               <div class="field">
                 <label for="phone">Phone number</label>
-                <input id="phone" name="phone" type="tel" placeholder="+91 98765 43210" autocomplete="tel">
+                <div class="phone-row">
+                  <select id="phoneCountry" aria-label="Country code"></select>
+                  <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="98765 43210">
+                </div>
+                <span class="field-hint">Digits only, up to 15 including the country code.</span>
               </div>
               <div class="field full">
                 <label for="location">Location</label>

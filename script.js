@@ -9,18 +9,17 @@ const outputContent = document.getElementById('output-content');
 const outputLabel = document.getElementById('output-label');
 const outputCount = document.getElementById('output-count');
 const themeToggle = document.getElementById('theme-toggle');
-const themeLabel = document.getElementById('theme-label');
+const phoneCountrySelect = document.getElementById('phoneCountry');
+const phoneInput = document.getElementById('phone');
 
 let currentFormat = 'json';
 let saveTimeout;
 
 function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
-  themeLabel.textContent = theme === 'dark' ? 'Light theme' : 'Dark theme';
-  themeToggle.setAttribute(
-    'aria-label',
-    `Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`
-  );
+  const ariaLabel = `Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`;
+  themeToggle.setAttribute('aria-label', ariaLabel);
+  themeToggle.setAttribute('title', ariaLabel);
   themeToggle.querySelector('.theme-icon').textContent = theme === 'dark' ? '☼' : '☾';
 }
 
@@ -44,6 +43,77 @@ themeToggle.addEventListener('click', () => {
     console.error('Could not save theme preference:', error);
   }
 });
+
+function initPhoneCountrySelect() {
+  COUNTRY_CODES.forEach(([iso, name, dialCode]) => {
+    const option = document.createElement('option');
+    option.value = iso;
+    option.textContent = `${name} (+${dialCode})`;
+    phoneCountrySelect.appendChild(option);
+  });
+
+  const userRegion = (navigator.language || 'en-IN').split('-')[1] || 'IN';
+  const defaultCountry = COUNTRY_CODES.find(([iso]) => iso === userRegion)
+    ? userRegion
+    : 'IN';
+
+  const defaultOption = phoneCountrySelect.querySelector(`option[value="${defaultCountry}"]`);
+  if (defaultOption) {
+    defaultOption.defaultSelected = true;
+    defaultOption.selected = true;
+  }
+}
+
+function getDialCode(iso) {
+  const country = COUNTRY_CODES.find(([code]) => code === iso);
+  return country ? country[2] : '';
+}
+
+function findCountryByDialCode(dialCode, preferredIso = null) {
+  const matches = COUNTRY_CODES.filter(([, , code]) => code === dialCode);
+  if (matches.length === 0) return null;
+  if (preferredIso) {
+    const preferred = matches.find(([iso]) => iso === preferredIso);
+    if (preferred) return preferred[0];
+  }
+  return matches[0][0];
+}
+
+function validatePhoneNumber() {
+  const number = phoneInput.value.trim();
+  
+  if (!number) {
+    phoneInput.setCustomValidity('');
+    return;
+  }
+
+  const cleaned = number.replace(/[\s()\.\-]/g, '');
+  
+  if (!/^\d+$/.test(cleaned)) {
+    phoneInput.setCustomValidity('Phone number can only contain digits, spaces, ( ) . -');
+    return;
+  }
+
+  if (cleaned.length < 4) {
+    phoneInput.setCustomValidity('Phone number must have at least 4 digits');
+    return;
+  }
+
+  const dialCode = getDialCode(phoneCountrySelect.value);
+  const totalDigits = dialCode.length + cleaned.length;
+
+  if (totalDigits > 15) {
+    phoneInput.setCustomValidity(`Phone number with country code (+${dialCode}) cannot exceed 15 digits (currently ${totalDigits})`);
+    return;
+  }
+
+  phoneInput.setCustomValidity('');
+}
+
+initPhoneCountrySelect();
+
+phoneCountrySelect.addEventListener('change', validatePhoneNumber);
+phoneInput.addEventListener('input', validatePhoneNumber);
 
 const sections = {
   education: {
@@ -128,7 +198,6 @@ function collectResume() {
   };
 
   const optionalPersonalFields = [
-    'phone',
     'location',
     'linkedin',
     'github',
@@ -139,6 +208,12 @@ function collectResume() {
     const value = data.get(key).trim();
     if (value) personal[key] = value;
   });
+
+  const phoneNumber = phoneInput.value.trim().replace(/\s+/g, ' ');
+  if (phoneNumber) {
+    const dialCode = getDialCode(phoneCountrySelect.value);
+    personal.phone = `+${dialCode} ${phoneNumber}`;
+  }
 
   const resume = {
     personal,
@@ -276,7 +351,9 @@ function renderOutput() {
 
 function saveToStorage() {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(collectResume()));
+    const data = collectResume();
+    data.phoneCountry = phoneCountrySelect.value;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   } catch (error) {
     console.error('Could not save resume data:', error);
   }
@@ -295,9 +372,53 @@ function restoreResume(resume) {
   const personal = resume.personal || {};
 
   Object.entries(personal).forEach(([key, value]) => {
+    if (key === 'phone') return;
     const input = form.elements.namedItem(key);
     if (input && typeof value === 'string') input.value = value;
   });
+
+  if (personal.phone && typeof personal.phone === 'string') {
+    if (personal.phone.startsWith('+')) {
+      const digitsAfterPlus = personal.phone.slice(1).match(/^\d+/);
+      if (digitsAfterPlus) {
+        const allDigits = digitsAfterPlus[0];
+        const savedPhoneCountry = resume.phoneCountry || null;
+        
+        let matchedDialCode = '';
+        let matchedCountryIso = null;
+        
+        for (let i = allDigits.length; i >= 1; i--) {
+          const candidateDialCode = allDigits.slice(0, i);
+          const matches = COUNTRY_CODES.filter(([, , code]) => code === candidateDialCode);
+          
+          if (matches.length > 0) {
+            matchedDialCode = candidateDialCode;
+            if (savedPhoneCountry) {
+              const preferred = matches.find(([iso]) => iso === savedPhoneCountry);
+              if (preferred) {
+                matchedCountryIso = preferred[0];
+                break;
+              }
+            }
+            matchedCountryIso = matches[0][0];
+            break;
+          }
+        }
+        
+        if (matchedCountryIso) {
+          phoneCountrySelect.value = matchedCountryIso;
+          const restAfterDialCode = personal.phone.slice(1 + matchedDialCode.length);
+          phoneInput.value = restAfterDialCode.trimStart();
+        } else {
+          phoneInput.value = personal.phone;
+        }
+      } else {
+        phoneInput.value = personal.phone;
+      }
+    } else {
+      phoneInput.value = personal.phone;
+    }
+  }
 
   const summary = form.elements.namedItem('summary');
   if (summary) summary.value = resume.summary || '';
@@ -320,6 +441,7 @@ function restoreResume(resume) {
     entries.forEach((entry) => addEntry(name, entry));
   });
 
+  validatePhoneNumber();
   renderOutput();
 }
 
@@ -427,6 +549,7 @@ document.getElementById('reset-btn').addEventListener('click', () => {
 
   clearTimeout(saveTimeout);
   clearSavedResume();
+  validatePhoneNumber();
   renderOutput();
 });
 
