@@ -16,6 +16,19 @@ const fullNameInput = document.getElementById('fullName');
 let currentFormat = 'json';
 let saveTimeout;
 
+function validateFullName() {
+  const value = fullNameInput.value.trim();
+  const hasNumbers = /\d/.test(value);
+  fullNameInput.setCustomValidity(
+    hasNumbers ? 'Name cannot contain numbers.' : ''
+  );
+  fullNameInput.classList.toggle('invalid', hasNumbers);
+  return !hasNumbers;
+}
+
+fullNameInput.addEventListener('input', validateFullName);
+
+
 function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
   const ariaLabel = `Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`;
@@ -501,6 +514,8 @@ form.addEventListener('input', scheduleSave);
 
 form.addEventListener('submit', (event) => {
   event.preventDefault();
+
+  validateFullName();
 
   if (!form.reportValidity()) return;
 
