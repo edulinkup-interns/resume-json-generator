@@ -84,6 +84,7 @@ function validatePhoneNumber() {
   
   if (!number) {
     phoneInput.setCustomValidity('');
+    phoneInput.classList.remove('invalid');
     return;
   }
 
@@ -91,11 +92,13 @@ function validatePhoneNumber() {
   
   if (!/^\d+$/.test(cleaned)) {
     phoneInput.setCustomValidity('Phone number can only contain digits, spaces, ( ) . -');
+    phoneInput.classList.add('invalid');
     return;
   }
 
   if (cleaned.length < 4) {
     phoneInput.setCustomValidity('Phone number must have at least 4 digits');
+    phoneInput.classList.add('invalid');
     return;
   }
 
@@ -104,10 +107,12 @@ function validatePhoneNumber() {
 
   if (totalDigits > 15) {
     phoneInput.setCustomValidity(`Phone number with country code (+${dialCode}) cannot exceed 15 digits (currently ${totalDigits})`);
+    phoneInput.classList.add('invalid');
     return;
   }
 
   phoneInput.setCustomValidity('');
+  phoneInput.classList.remove('invalid');
 }
 
 initPhoneCountrySelect();
