@@ -11,6 +11,7 @@ const outputCount = document.getElementById('output-count');
 const themeToggle = document.getElementById('theme-toggle');
 const phoneCountrySelect = document.getElementById('phoneCountry');
 const phoneInput = document.getElementById('phone');
+const fullNameInput = document.getElementById('fullName');
 
 let currentFormat = 'json';
 let saveTimeout;
@@ -115,10 +116,30 @@ function validatePhoneNumber() {
   phoneInput.classList.remove('invalid');
 }
 
+function validateFullName() {
+  const name = fullNameInput.value.trim();
+
+  if (!name) {
+    fullNameInput.setCustomValidity('');
+    fullNameInput.classList.remove('invalid');
+    return;
+  }
+
+  if (/\d/.test(name)) {
+    fullNameInput.setCustomValidity('Full name cannot contain numbers');
+    fullNameInput.classList.add('invalid');
+    return;
+  }
+
+  fullNameInput.setCustomValidity('');
+  fullNameInput.classList.remove('invalid');
+}
+
 initPhoneCountrySelect();
 
 phoneCountrySelect.addEventListener('change', validatePhoneNumber);
 phoneInput.addEventListener('input', validatePhoneNumber);
+fullNameInput.addEventListener('input', validateFullName);
 
 const sections = {
   education: {
@@ -446,6 +467,7 @@ function restoreResume(resume) {
     entries.forEach((entry) => addEntry(name, entry));
   });
 
+  validateFullName();
   validatePhoneNumber();
   renderOutput();
 }
@@ -554,6 +576,7 @@ document.getElementById('reset-btn').addEventListener('click', () => {
 
   clearTimeout(saveTimeout);
   clearSavedResume();
+  validateFullName();
   validatePhoneNumber();
   renderOutput();
 });
