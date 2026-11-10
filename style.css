@@ -105,7 +105,8 @@ button {
 
 button:focus-visible,
 input:focus-visible,
-textarea:focus-visible {
+textarea:focus-visible,
+select:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
@@ -147,14 +148,14 @@ textarea:focus-visible {
 .theme-toggle {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
   border: 1px solid var(--border);
   border-radius: 9px;
   background: var(--surface-raised);
   color: var(--text);
-  font-size: 12px;
-  font-weight: 700;
   transition: border-color 0.2s, background 0.2s;
 }
 
@@ -164,7 +165,7 @@ textarea:focus-visible {
 
 .theme-icon {
   color: var(--accent);
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1;
 }
 
@@ -339,7 +340,8 @@ textarea:focus-visible {
 }
 
 .field input,
-.field textarea {
+.field textarea,
+.field select {
   width: 100%;
   min-width: 0;
   border: 1px solid var(--border);
@@ -358,7 +360,8 @@ textarea:focus-visible {
 }
 
 .field input:focus,
-.field textarea:focus {
+.field textarea:focus,
+.field select:focus {
   border-color: var(--focus-border);
   box-shadow: 0 0 0 3px var(--focus-shadow);
 }
@@ -371,6 +374,22 @@ textarea:focus-visible {
 .field-hint {
   font-size: 10px;
   color: var(--muted);
+}
+
+.phone-row {
+  display: grid;
+  grid-template-columns: 124px 1fr;
+  gap: 8px;
+}
+
+input.invalid {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 1px #ef4444;
+}
+
+.field input.invalid:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25);
 }
 
 .button {
@@ -646,9 +665,17 @@ footer span:first-child {
     grid-column: auto;
   }
 
+  .phone-row {
+    grid-template-columns: 110px 1fr;
+  }
+
   footer {
     padding-left: 18px;
     padding-right: 18px;
     flex-wrap: wrap;
   }
+  input.invalid {
+  border: 1px solid #ef4444;
+  box-shadow: 0 0 0 1px #ef4444;
+}
 }

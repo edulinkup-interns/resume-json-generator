@@ -1,46 +1,54 @@
 # Resume JSON Generator
 
-A lightweight, browser-based tool for building structured resume data and exporting it as JSON. Fill in your details through a guided form, review the generated output, and download it as `resume.json` for use in other projects or workflows.
+A lightweight, browser-based resume builder that converts your professional information into structured JSON and clean plain text.
 
-## Features
-
-- **Guided 10-step form** covering personal information, summary, education, skills, experience, projects, certifications, achievements, leadership positions, and export.
-- **Repeatable sections** for entries such as education, work experience, projects, certifications, achievements, and positions.
-- **Live JSON generation** to review the structured resume data before exporting.
-- **Download or copy** the generated JSON.
-- **Automatic draft saving** in the browser using `localStorage`, so your progress remains available in the same browser.
-- **Responsive interface** with a dark theme for desktop and mobile screens.
-- **Reset option** to clear the saved draft and start over.
-
-## Interview Questions
-1. What problem does this project solve??
-2. Why did you build this??
-3. What exactly did you implement??
-4. What is the Tech stack??
-5. What about database??
-6. How are users Authorised??
-7. How did you deploy this project??
-8. What was the hardest bug??
-9. What if the users increase to 100x than usual??
-10. What is the trade-off??
-11. How would you redesign/new feature/Future ideas??  
+**[Live Demo](https://edulinkup-interns.github.io/resume-json-generator/)**
 
 ## Preview
 
-<img width="1516" height="750" alt="image" src="https://github.com/user-attachments/assets/730cfb4c-1b1c-43c7-955a-42ffbced56e0" />
+![Resume JSON Generator Preview](https://github.com/user-attachments/assets/6fd66f17-493c-400a-9b8d-b9924cb47462)
 
+## Features
+
+- Interactive resume builder with real-time output generation.
+- Manage personal information, education, skills, experience, and projects.
+- Add and remove entries in dynamic resume sections.
+- Export resume data as JSON or plain text.
+- Copy generated output to the clipboard.
+- Download generated files in `.json` and `.txt` formats.
+- Automatically save and restore drafts using Local Storage.
+- Dark and light theme support.
+- Responsive interface for different screen sizes.
+- Browser-based data handling without a backend.
+
+## Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| HTML5 | Page structure |
+| CSS3 | Styling and responsive design |
+| JavaScript (ES6+) | Application logic and DOM manipulation |
+| Local Storage | Persistent draft storage |
+| Clipboard API | Copy generated output |
+| Blob API | File generation and downloads |
+| GitHub Pages | Hosting and deployment |
 
 ## Getting Started
 
-### Run locally
+### Prerequisites
+
+- A modern web browser.
+- Git (optional, for cloning the repository).
+
+### Run Locally
 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/Rohan-Shridhar/resume-json-generator.git
+   git clone https://github.com/edulinkup-interns/resume-json-generator.git
    ```
 
-2. Open the project folder:
+2. Navigate to the project directory:
 
    ```bash
    cd resume-json-generator
@@ -48,56 +56,47 @@ A lightweight, browser-based tool for building structured resume data and export
 
 3. Open `index.html` in your browser.
 
-You can also use a local development server, such as the **Live Server** extension in VS Code.
+   Alternatively, use the Live Server extension in VS Code.
 
-## How to Use
-
-1. Open the application in your browser.
-2. Fill in each resume section using **Next** and **Previous** to navigate.
-3. Add or remove entries where needed.
-4. Go to **Review & Export** to inspect the generated JSON.
-5. Select **Copy JSON** to copy the data, or **Download resume.json** to save it as a file.
-
-Your draft is automatically saved in your browser. Drafts are stored locally and are not synced between browsers or devices. Clearing the browser's site data may remove the saved draft.
+No additional dependencies, build tools, or backend configuration are required.
 
 ## Output Structure
 
-The exported file is a JSON object with the following top-level fields:
+The generated JSON contains the following top-level fields:
 
 | Field | Description |
-| --- | --- |
-| `personal` | Name, email, phone, location, LinkedIn, GitHub, and portfolio |
-| `summary` | Professional summary text |
-| `education` | Array of education entries |
-| `skills` | Programming languages, web technologies, databases, tools/platforms, and other skills |
-| `experience` | Array of work, internship, or freelance experience entries |
-| `projects` | Array of projects, including technologies, descriptions, and links |
-| `certifications` | Array of certification entries |
-| `achievements` | Array of achievements |
-| `positions` | Array of leadership and other position entries |
+|---|---|
+| `personal` | Contact details and professional links |
+| `summary` | Professional summary |
+| `education` | Educational qualifications |
+| `skills` | Technical and professional skills |
+| `experience` | Work experience and internships |
+| `projects` | Projects, technologies, and links |
+| `certifications` | Professional certifications |
+| `achievements` | Accomplishments and awards |
+| `positions` | Leadership roles and responsibilities |
 
-Example output:
+### Example JSON
 
 ```json
 {
   "personal": {
-    "name": "Alex Morgan",
+    "fullName": "Alex Morgan",
     "email": "alex@example.com",
-    "phone": "",
-    "location": "Bengaluru, India",
-    "linkedin": "",
-    "github": "",
-    "portfolio": ""
+    "phone": "+91 98765 43210",
+    "location": "Kolkata, India",
+    "linkedin": "https://linkedin.com/in/alexmorgan",
+    "github": "https://github.com/alexmorgan",
+    "portfolio": "https://alexmorgan.dev"
   },
   "summary": "Computer Science student interested in software development.",
   "education": [],
-  "skills": {
-    "programmingLanguages": ["Java", "Python", "JavaScript"],
-    "webTechnologies": ["HTML", "CSS", "React"],
-    "databases": ["MongoDB"],
-    "toolsAndPlatforms": ["Git", "GitHub"],
-    "other": ["Problem Solving"]
-  },
+  "skills": [
+    "JavaScript",
+    "React",
+    "Node.js",
+    "MongoDB"
+  ],
   "experience": [],
   "projects": [],
   "certifications": [],
@@ -106,36 +105,40 @@ Example output:
 }
 ```
 
-The example is illustrative; fields are populated based on the information entered in the form. Skills and project technologies are entered as comma-separated values and exported as arrays.
+*This is an illustrative example. Actual output is generated dynamically from the information entered in the application.*
 
-## Project Structure
+## Privacy & Data Storage
 
-```text
-resume-json-generator/
-├── index.html   # Form structure and page layout
-├── style.css    # Styling and responsive layout
-├── script.js    # Form navigation, data collection, autosave, and JSON export
-└── README.md    # Project documentation
-└── LICENSE      # MIT Lincense
-```
+- Resume information is stored locally in the browser using `localStorage`.
+- No backend or external database is required.
+- Resume data is not uploaded to an external server by the application.
+- Saved drafts are available in the same browser profile.
+- Clearing browser site data may permanently remove saved information.
 
-## Technologies
-
-- HTML
-- CSS
-- Vanilla JavaScript
-- Browser APIs: Local Storage, Clipboard API, and Blob downloads
-
-No framework, backend, database, or third-party package is required.
-
-## Privacy
-
-Resume information and saved drafts are handled in your browser by this application. Drafts are stored in `localStorage`; avoid using a shared or public device for sensitive personal information, and clear the saved draft when finished.
+**Note:** Anyone with access to the same browser profile may be able to view saved resume information. Avoid using shared or public devices for sensitive information.
 
 ## Contributing
 
-Issues and pull requests for bug fixes, usability improvements, and additional export formats are welcome.
+Contributions, bug reports, and suggestions are welcome!
+
+1. Fork the repository.
+2. Create a feature branch:
+
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+3. Make your changes and test them locally.
+4. Commit and push your changes:
+
+   ```bash
+   git add .
+   git commit -m "Describe your changes"
+   git push origin feature/your-feature-name
+   ```
+
+5. Open a Pull Request against the upstream repository.
 
 ## License
 
-[MIT LICENSE](LICENSE)
+This project is licensed under the [MIT License](LICENSE).
