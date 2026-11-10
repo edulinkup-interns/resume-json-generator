@@ -29,11 +29,15 @@ fullNameInput.addEventListener('input', validateFullName);
 
 function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
-  const ariaLabel = `Switch to ${theme === "dark" ? "light" : "dark"} theme`;
-  themeToggle.setAttribute("aria-label", ariaLabel);
-  themeToggle.setAttribute("title", ariaLabel);
-  themeToggle.querySelector(".theme-icon").textContent =
-    theme === "dark" ? "☼" : "☾";
+  const ariaLabel = `Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`;
+
+  themeLabel.textContent = theme === 'dark' ? 'Light' : 'Dark';
+
+  themeToggle.setAttribute('aria-label', ariaLabel);
+  themeToggle.setAttribute('title', ariaLabel);
+
+  themeToggle.querySelector('.theme-icon').textContent =
+    theme === 'dark' ? '☼' : '☾';
 }
 
 try {
@@ -686,7 +690,7 @@ document.getElementById("copy-btn").addEventListener("click", async () => {
     button.textContent = "Copied!";
     setTimeout(() => {
       button.textContent = previousText;
-    }, 1500);
+    }, 1000);
   } catch (error) {
     console.error("Clipboard access failed:", error);
     window.prompt("Copy your resume output:", outputContent.textContent);

@@ -1,40 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Build structured resume data and export it as JSON or plain text for AI tools."
-    />
-    <link rel="icon" type="image/png" href="favicon.png" />
-    <title>resume.json</title>
-    <link rel="stylesheet" href="style.css" />
-    <script src="countries.js" defer></script>
-    <script src="script.js" defer></script>
-  </head>
-  <body>
-    <header class="topbar">
-      <a href="#" class="brand">
-        <img
-          class="brand-logo"
-          src="public/logo.png"
-          alt="resume.json logo"
-          width="40"
-          height="40"
-        />
-        <span>resume<span class="brand-accent">.json</span></span>
-      </a>
-      <button
-        type="button"
-        class="theme-toggle"
-        id="theme-toggle"
-        aria-label="Switch to light theme"
-        title="Switch to light theme"
-      >
-        <span class="theme-icon" aria-hidden="true">☼</span>
-      </button>
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Build structured resume data and export it as JSON or plain text for AI tools."
+  />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <title>resume.json</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="countries.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <header class="topbar">
+    <a href="#" class="brand">
+      <img
+        class="brand-logo"
+        src="public/logo.png"
+        alt="resume.json logo"
+        width="40"
+        height="40"
+      />
+      <span>resume<span class="brand-accent">.json</span></span>
+    </a>
+
+    <button
+      type="button"
+      class="theme-toggle"
+      id="theme-toggle"
+      aria-label="Switch to light theme"
+      title="Switch to light theme"
+    >
+      <span class="theme-icon" aria-hidden="true">☼</span>
+      <span id="theme-label">Light theme</span>
+    </button>
+  </header>
 
     <main class="app-container">
       <section class="hero">
@@ -473,168 +476,193 @@
           <span>Experience entry</span
           ><button type="button" class="remove-btn">Remove</button>
         </div>
-        <div class="form-grid">
-          <div class="field">
-            <label>Job title</label
-            ><input data-key="title" placeholder="Software Developer Intern" />
-          </div>
-          <div class="field">
-            <label>Company</label
-            ><input data-key="company" placeholder="Company name" />
-          </div>
-          <div class="field">
-            <label>Start date</label
-            ><input data-key="startDate" placeholder="Jun 2026" />
-          </div>
-          <div class="field">
-            <label>End date</label
-            ><input data-key="endDate" placeholder="Present" />
-          </div>
-          <div class="field full">
-            <label>Description</label
-            ><textarea
-              data-key="description"
-              rows="3"
-              placeholder="Responsibilities, contributions and impact..."
-            ></textarea>
-          </div>
-        </div>
-      </article>
-    </template>
 
-    <template id="projects-template">
-      <article class="repeat-card">
-        <div class="repeat-card-heading">
-          <span>Project entry</span
-          ><button type="button" class="remove-btn">Remove</button>
-        </div>
-        <div class="form-grid">
-          <div class="field full">
-            <label>Project name</label
-            ><input data-key="name" placeholder="Project name" />
-          </div>
-          <div class="field full">
-            <label>Description</label
-            ><textarea
-              data-key="description"
-              rows="3"
-              placeholder="What does it do? What problem does it solve?"
-            ></textarea>
-          </div>
-          <div class="field full">
-            <label>Technologies</label
-            ><input
-              data-key="technologies"
-              placeholder="React, Node.js, MongoDB"
-            />
-          </div>
-          <div class="field">
-            <label>Project URL</label
-            ><input data-key="url" type="url" placeholder="https://..." />
-          </div>
-          <div class="field">
-            <label>Repository URL</label
-            ><input
-              data-key="repository"
-              type="url"
-              placeholder="https://github.com/..."
-            />
-          </div>
-        </div>
-      </article>
-    </template>
+      </aside>
+    </div>
 
-    <template id="certifications-template">
-      <article class="repeat-card">
-        <div class="repeat-card-heading">
-          <span>Certification entry</span
-          ><button type="button" class="remove-btn">Remove</button>
-        </div>
-        <div class="form-grid">
-          <div class="field full">
-            <label>Certification name</label
-            ><input data-key="name" placeholder="Certification title" />
-          </div>
-          <div class="field">
-            <label>Issuing organization</label
-            ><input data-key="issuer" placeholder="Organization" />
-          </div>
-          <div class="field">
-            <label>Date</label><input data-key="date" placeholder="Oct 2026" />
-          </div>
-          <div class="field full">
-            <label>Credential URL</label
-            ><input data-key="url" type="url" placeholder="https://..." />
-          </div>
-        </div>
-      </article>
-    </template>
+    <footer>
+      <span>resume.json</span>
+      <span>Built for your next opportunity.</span>
+    </footer>
+  </main>
 
-    <template id="achievements-template">
-      <article class="repeat-card">
-        <div class="repeat-card-heading">
-          <span>Achievement entry</span
-          ><button type="button" class="remove-btn">Remove</button>
+  <template id="education-template">
+    <article class="repeat-card">
+      <div class="repeat-card-heading">
+        <span>Education entry</span>
+        <button type="button" class="remove-btn">Remove</button>
+      </div>
+      <div class="form-grid">
+        <div class="field full">
+          <label for="education-__ENTRY_ID__-institution">Institution</label>
+          <input id="education-__ENTRY_ID__-institution" data-key="institution" placeholder="University or college">
         </div>
-        <div class="form-grid">
-          <div class="field full">
-            <label>Achievement</label
-            ><input
-              data-key="title"
-              placeholder="Award, competition or accomplishment"
-            />
-          </div>
-          <div class="field full">
-            <label>Description</label
-            ><textarea
-              data-key="description"
-              rows="2"
-              placeholder="Explain the achievement and its impact"
-            ></textarea>
-          </div>
-          <div class="field full">
-            <label>Date</label><input data-key="date" placeholder="2026" />
-          </div>
+        <div class="field">
+          <label for="education-__ENTRY_ID__-degree">Degree</label>
+          <input id="education-__ENTRY_ID__-degree" data-key="degree" placeholder="B.E. Computer Science">
         </div>
-      </article>
-    </template>
+        <div class="field">
+          <label for="education-__ENTRY_ID__-field">Field of study</label>
+          <input id="education-__ENTRY_ID__-field" data-key="field" placeholder="Computer Science">
+        </div>
+        <div class="field">
+          <label for="education-__ENTRY_ID__-startDate">Start date</label>
+          <input id="education-__ENTRY_ID__-startDate" data-key="startDate" placeholder="2023">
+        </div>
+        <div class="field">
+          <label for="education-__ENTRY_ID__-endDate">End date</label>
+          <input id="education-__ENTRY_ID__-endDate" data-key="endDate" placeholder="2027 or Present">
+        </div>
+        <div class="field full">
+          <label for="education-__ENTRY_ID__-grade">Grade / CGPA</label>
+          <input id="education-__ENTRY_ID__-grade" data-key="grade" placeholder="9.2 CGPA">
+        </div>
+      </div>
+    </article>
+  </template>
 
-    <template id="positions-template">
-      <article class="repeat-card">
-        <div class="repeat-card-heading">
-          <span>Leadership entry</span
-          ><button type="button" class="remove-btn">Remove</button>
+  <template id="experience-template">
+    <article class="repeat-card">
+      <div class="repeat-card-heading">
+        <span>Experience entry</span>
+        <button type="button" class="remove-btn">Remove</button>
+      </div>
+      <div class="form-grid">
+        <div class="field">
+          <label for="experience-__ENTRY_ID__-title">Job title</label>
+          <input id="experience-__ENTRY_ID__-title" data-key="title" placeholder="Software Developer Intern">
         </div>
-        <div class="form-grid">
-          <div class="field">
-            <label>Position</label
-            ><input data-key="title" placeholder="Class Representative" />
-          </div>
-          <div class="field">
-            <label>Organization</label
-            ><input
-              data-key="organization"
-              placeholder="College or organization"
-            />
-          </div>
-          <div class="field">
-            <label>Start date</label
-            ><input data-key="startDate" placeholder="2025" />
-          </div>
-          <div class="field">
-            <label>End date</label
-            ><input data-key="endDate" placeholder="Present" />
-          </div>
-          <div class="field full">
-            <label>Description</label
-            ><textarea
-              data-key="description"
-              rows="2"
-              placeholder="Responsibilities and contributions"
-            ></textarea>
-          </div>
+        <div class="field">
+          <label for="experience-__ENTRY_ID__-company">Company</label>
+          <input id="experience-__ENTRY_ID__-company" data-key="company" placeholder="Company name">
         </div>
-      </article>
-    </template>
-  </body>
+        <div class="field">
+          <label for="experience-__ENTRY_ID__-startDate">Start date</label>
+          <input id="experience-__ENTRY_ID__-startDate" data-key="startDate" placeholder="Jun 2026">
+        </div>
+        <div class="field">
+          <label for="experience-__ENTRY_ID__-endDate">End date</label>
+          <input id="experience-__ENTRY_ID__-endDate" data-key="endDate" placeholder="Present">
+        </div>
+        <div class="field full">
+          <label for="experience-__ENTRY_ID__-description">Description</label>
+          <textarea id="experience-__ENTRY_ID__-description" data-key="description" rows="3" placeholder="Responsibilities, contributions and impact..."></textarea>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <template id="projects-template">
+    <article class="repeat-card">
+      <div class="repeat-card-heading">
+        <span>Project entry</span>
+        <button type="button" class="remove-btn">Remove</button>
+      </div>
+      <div class="form-grid">
+        <div class="field full">
+          <label for="projects-__ENTRY_ID__-name">Project name</label>
+          <input id="projects-__ENTRY_ID__-name" data-key="name" placeholder="Project name">
+        </div>
+        <div class="field full">
+          <label for="projects-__ENTRY_ID__-description">Description</label>
+          <textarea id="projects-__ENTRY_ID__-description" data-key="description" rows="3" placeholder="What does it do? What problem does it solve?"></textarea>
+        </div>
+        <div class="field full">
+          <label for="projects-__ENTRY_ID__-technologies">Technologies</label>
+          <input id="projects-__ENTRY_ID__-technologies" data-key="technologies" placeholder="React, Node.js, MongoDB">
+        </div>
+        <div class="field">
+          <label for="projects-__ENTRY_ID__-url">Project URL</label>
+          <input id="projects-__ENTRY_ID__-url" data-key="url" type="url" placeholder="https://...">
+        </div>
+        <div class="field">
+          <label for="projects-__ENTRY_ID__-repository">Repository URL</label>
+          <input id="projects-__ENTRY_ID__-repository" data-key="repository" type="url" placeholder="https://github.com/...">
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <template id="certifications-template">
+    <article class="repeat-card">
+      <div class="repeat-card-heading">
+        <span>Certification entry</span>
+        <button type="button" class="remove-btn">Remove</button>
+      </div>
+      <div class="form-grid">
+        <div class="field full">
+          <label for="certifications-__ENTRY_ID__-name">Certification name</label>
+          <input id="certifications-__ENTRY_ID__-name" data-key="name" placeholder="Certification title">
+        </div>
+        <div class="field">
+          <label for="certifications-__ENTRY_ID__-issuer">Issuing organization</label>
+          <input id="certifications-__ENTRY_ID__-issuer" data-key="issuer" placeholder="Organization">
+        </div>
+        <div class="field">
+          <label for="certifications-__ENTRY_ID__-date">Date</label>
+          <input id="certifications-__ENTRY_ID__-date" data-key="date" placeholder="Oct 2026">
+        </div>
+        <div class="field full">
+          <label for="certifications-__ENTRY_ID__-url">Credential URL</label>
+          <input id="certifications-__ENTRY_ID__-url" data-key="url" type="url" placeholder="https://...">
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <template id="achievements-template">
+    <article class="repeat-card">
+      <div class="repeat-card-heading">
+        <span>Achievement entry</span>
+        <button type="button" class="remove-btn">Remove</button>
+      </div>
+      <div class="form-grid">
+        <div class="field full">
+          <label for="achievements-__ENTRY_ID__-title">Achievement</label>
+          <input id="achievements-__ENTRY_ID__-title" data-key="title" placeholder="Award, competition or accomplishment">
+        </div>
+        <div class="field full">
+          <label for="achievements-__ENTRY_ID__-description">Description</label>
+          <textarea id="achievements-__ENTRY_ID__-description" data-key="description" rows="2" placeholder="Explain the achievement and its impact"></textarea>
+        </div>
+        <div class="field full">
+          <label for="achievements-__ENTRY_ID__-date">Date</label>
+          <input id="achievements-__ENTRY_ID__-date" data-key="date" placeholder="2026">
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <template id="positions-template">
+    <article class="repeat-card">
+      <div class="repeat-card-heading">
+        <span>Leadership entry</span>
+        <button type="button" class="remove-btn">Remove</button>
+      </div>
+      <div class="form-grid">
+        <div class="field">
+          <label for="positions-__ENTRY_ID__-title">Position</label>
+          <input id="positions-__ENTRY_ID__-title" data-key="title" placeholder="Class Representative">
+        </div>
+        <div class="field">
+          <label for="positions-__ENTRY_ID__-organization">Organization</label>
+          <input id="positions-__ENTRY_ID__-organization" data-key="organization" placeholder="College or organization">
+        </div>
+        <div class="field">
+          <label for="positions-__ENTRY_ID__-startDate">Start date</label>
+          <input id="positions-__ENTRY_ID__-startDate" data-key="startDate" placeholder="2025">
+        </div>
+        <div class="field">
+          <label for="positions-__ENTRY_ID__-endDate">End date</label>
+          <input id="positions-__ENTRY_ID__-endDate" data-key="endDate" placeholder="Present">
+        </div>
+        <div class="field full">
+          <label for="positions-__ENTRY_ID__-description">Description</label>
+          <textarea id="positions-__ENTRY_ID__-description" data-key="description" rows="2" placeholder="Responsibilities and contributions"></textarea>
+        </div>
+      </div>
+    </article>
+  </template>
+</body>
+
 </html>
