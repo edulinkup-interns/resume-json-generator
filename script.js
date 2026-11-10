@@ -711,7 +711,9 @@ document.getElementById("download-btn").addEventListener("click", () => {
   document.body.appendChild(link);
   link.click();
   link.remove();
+  setTimeout(() => {
   URL.revokeObjectURL(url);
+  }, 1000);
 });
 
 document.getElementById("reset-btn").addEventListener("click", () => {
