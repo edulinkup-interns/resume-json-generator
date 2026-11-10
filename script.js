@@ -16,10 +16,10 @@ let saveTimeout;
 
 function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
-  themeLabel.textContent = theme === 'dark' ? 'Light theme' : 'Dark theme';
+  themeLabel.textContent = theme === 'dark' ? 'Light' : 'Dark';
   themeToggle.setAttribute(
     'aria-label',
-    `Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`
+    `Switch to ${theme === 'dark' ? 'light' : 'dark'}`
   );
   themeToggle.querySelector('.theme-icon').textContent = theme === 'dark' ? '☼' : '☾';
 }
@@ -409,7 +409,9 @@ document.getElementById('download-btn').addEventListener('click', () => {
   document.body.appendChild(link);
   link.click();
   link.remove();
+  setTimeout(() => {
   URL.revokeObjectURL(url);
+  }, 1000);
 });
 
 document.getElementById('reset-btn').addEventListener('click', () => {
