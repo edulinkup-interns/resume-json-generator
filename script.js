@@ -382,7 +382,7 @@ document.getElementById('copy-btn').addEventListener('click', async () => {
     button.textContent = 'Copied!';
     setTimeout(() => {
       button.textContent = previousText;
-    }, 1500);
+    }, 1000);
   } catch (error) {
     console.error('Clipboard access failed:', error);
     window.prompt('Copy your resume output:', outputContent.textContent);
