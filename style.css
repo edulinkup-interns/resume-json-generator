@@ -633,3 +633,114 @@ footer span:first-child {
   box-shadow: 0 0 0 1px #ef4444;
 }
 }
+
+
+/* Reset Confirmation Dialog */
+.reset-dialog {
+  width: min(440px, calc(100% - 32px));
+  max-width: 440px;
+  padding: 28px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3);
+}
+
+.reset-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+}
+
+.reset-dialog[open] {
+  animation: reset-dialog-enter 0.2s ease-out;
+}
+
+@keyframes reset-dialog-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.reset-dialog-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.reset-dialog-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--danger) 12%, transparent);
+  color: var(--danger);
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.reset-dialog-text h2 {
+  margin: 0 0 10px;
+  font-size: 19px;
+  color: var(--text);
+}
+
+.reset-dialog-text p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.reset-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.reset-dialog-confirm {
+  background: var(--danger);
+  color: #ffffff;
+  border-color: var(--danger);
+}
+
+.reset-dialog-confirm:hover {
+  background: color-mix(in srgb, var(--danger) 85%, black);
+  border-color: var(--danger);
+}
+
+.reset-dialog button:focus-visible {
+  outline: 3px solid var(--focus-border);
+  outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  .reset-dialog {
+    padding: 22px;
+  }
+
+  .reset-dialog-actions {
+    flex-direction: column-reverse;
+  }
+
+  .reset-dialog-actions .button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reset-dialog[open] {
+    animation: none;
+  }
+}

@@ -636,5 +636,45 @@
         </div>
       </article>
     </template>
+
+    <!-- Reset Confirmation Dialog -->
+    <dialog
+      id="reset-dialog"
+      class="reset-dialog"
+      aria-labelledby="reset-dialog-title"
+      aria-describedby="reset-dialog-description"
+    >
+      <div class="reset-dialog-content">
+        <div class="reset-dialog-icon" aria-hidden="true">!</div>
+
+        <div class="reset-dialog-text">
+          <h2 id="reset-dialog-title">Reset your resume?</h2>
+
+          <p id="reset-dialog-description">
+            Are you sure you want to reset your resume? All saved resume
+            information in this browser will be permanently deleted. This action
+            cannot be undone.
+          </p>
+        </div>
+      </div>
+
+      <div class="reset-dialog-actions">
+        <button
+          type="button"
+          class="button button-secondary"
+          id="cancel-reset-btn"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="button"
+          class="button reset-dialog-confirm"
+          id="confirm-reset-btn"
+        >
+          Reset resume
+        </button>
+      </div>
+    </dialog>
   </body>
 </html>
