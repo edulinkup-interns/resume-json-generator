@@ -4,14 +4,14 @@
 const STORAGE_KEY = 'resume-json-generator-v1';
 const THEME_STORAGE_KEY = 'resume-json-generator-theme';
 
-const form = document.getElementById('resume-form');
-const outputContent = document.getElementById('output-content');
-const outputLabel = document.getElementById('output-label');
-const outputCount = document.getElementById('output-count');
-const themeToggle = document.getElementById('theme-toggle');
-const phoneCountrySelect = document.getElementById('phoneCountry');
-const phoneInput = document.getElementById('phone');
-const fullNameInput = document.getElementById('fullName');
+const form = document.getElementById("resume-form");
+const outputContent = document.getElementById("output-content");
+const outputLabel = document.getElementById("output-label");
+const outputCount = document.getElementById("output-count");
+const themeToggle = document.getElementById("theme-toggle");
+const phoneCountrySelect = document.getElementById("phoneCountry");
+const phoneInput = document.getElementById("phone");
+const fullNameInput = document.getElementById("fullName");
 
 let currentFormat = 'json';
 let saveTimeout;
@@ -561,23 +561,45 @@ document.getElementById('download-btn').addEventListener('click', () => {
   URL.revokeObjectURL(url);
 });
 
-document.getElementById('reset-btn').addEventListener('click', () => {
-  const confirmed = window.confirm(
-    'Clear all resume information saved in this browser? This cannot be undone.'
-  );
 
-  if (!confirmed) return;
+const resetDialog = document.getElementById("reset-dialog");
+const cancelResetBtn = document.getElementById("cancel-reset-btn");
+const confirmResetBtn = document.getElementById("confirm-reset-btn");
+const resetBtn = document.getElementById("reset-btn");
 
-  form.reset();
-
-  Object.values(sections).forEach((section) => {
-    document.getElementById(section.container).replaceChildren();
-  });
-
-  clearTimeout(saveTimeout);
-  clearSavedResume();
-  renderOutput();
+// Open the confirmation dialog
+resetBtn.addEventListener("click", () => {
+    resetDialog.showModal();
 });
+
+// Close the dialog without resetting anything
+cancelResetBtn.addEventListener("click", () => {
+    resetDialog.close();
+});
+
+// Close the dialog when Escape is pressed
+resetDialog.addEventListener("cancel", (event) => {
+    event.preventDefault();
+    resetDialog.close();
+});
+
+// Reset the resume only after confirmation
+confirmResetBtn.addEventListener("click", () => {
+    resetDialog.close();
+
+    form.reset();
+
+    Object.values(sections).forEach((section) => {
+        document.getElementById(section.container).replaceChildren();
+    });
+
+    clearTimeout(saveTimeout);
+    clearSavedResume();
+    validateFullName();
+    validatePhoneNumber();
+    renderOutput();
+});
+
 
 try {
   const saved = localStorage.getItem(STORAGE_KEY);
