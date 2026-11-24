@@ -800,42 +800,41 @@ function showCopyStatus(message, type) {
   copyStatusTimeout = setTimeout(() => {
     copyStatus.textContent = "";
     copyStatus.className = "copy-status";
-  }, 5000);
+  }, 3000);
 }
 
 async function copyToClipboard(text) {
-  if (navigator.clipboard && window.isSecureContext) {
-    try {
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
       await navigator.clipboard.writeText(text);
       return true;
-    } catch (error) {
-      console.warn("Clipboard API failed. Trying fallback:", error);
     }
+  } catch (error) {
+    console.warn("Clipboard API failed:", error);
   }
 
   const textArea = document.createElement("textarea");
   textArea.value = text;
   textArea.style.position = "fixed";
   textArea.style.opacity = "0";
+  textArea.setAttribute("readonly", "");
 
   document.body.appendChild(textArea);
-  textArea.select();
 
   try {
-    const successful = document.execCommand("copy");
-    if (!successful) {
-      throw new Error("Fallback copy failed");
-    }
-    return true;
+    textArea.select();
+    return document.execCommand("copy");
+  } catch (error) {
+    console.error("Fallback clipboard failed:", error);
+    return false;
   } finally {
     textArea.remove();
   }
 }
 
 copyButton.addEventListener("click", async () => {
-  
   if (!ensureResumeValid()) return;
-  
+
   renderOutput();
 
   const text = outputContent.textContent;
@@ -847,7 +846,7 @@ copyButton.addEventListener("click", async () => {
       showCopyStatus("Copied successfully!", "is-success");
     } else {
       showCopyStatus(
-        "Unable to copy. Please copy the output manually.",
+        "Copy failed. Please copy the output manually.",
         "is-error"
       );
     }
@@ -855,11 +854,12 @@ copyButton.addEventListener("click", async () => {
     console.error("Clipboard access failed:", error);
 
     showCopyStatus(
-      "Unable to copy. Please select and copy the output manually.",
+      "Copy failed. Please copy the output manually.",
       "is-error"
     );
   }
 });
+
 
 document.getElementById("download-btn").addEventListener("click", () => {
   if (!ensureResumeValid()) return;
