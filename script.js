@@ -833,8 +833,6 @@ async function copyToClipboard(text) {
 }
 
 copyButton.addEventListener("click", async () => {
-  console.log("COPY BUTTON CLICKED");
-  console.log("Status element:", copyStatus);
   
   if (!ensureResumeValid()) return;
   
