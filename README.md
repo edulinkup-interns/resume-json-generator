@@ -236,23 +236,28 @@ No framework, backend, database, or third-party package is required.
 
 Resume information and saved drafts are handled in your browser by this application. Drafts are stored in `localStorage`; avoid using a shared or public device for sensitive personal information, and clear the saved draft when finished.
 
-
 ## Good First Issues
 
 New to open source? We'd love to have you contribute!
 
-Start by exploring issues labelled for community contributions:
+Explore open issues labelled for community contributions:
 
 - [Good First Issues](https://github.com/edulinkup-interns/resume-json-generator/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) – Beginner-friendly tasks suitable for first-time contributors.
-- [Help Wanted](https://github.com/edulinkup-interns/resume-json-generator/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22) – Issues where the maintainers are looking for additional contributions.
+- [Help Wanted](https://github.com/edulinkup-interns/resume-json-generator/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22) – Issues where maintainers are looking for additional contributions.
+
+### How to Select an Issue
+
+- Start with `good first issue` if you are new to the repository or prefer a small, well-scoped task (such as documentation updates, UI polish, or minor bug fixes).
+- Browse `help wanted` once you are comfortable with the codebase and want to tackle broader enhancements.
+- Choose a task that matches your comfort level with HTML, CSS, vanilla JavaScript, or documentation, and look for issues without an assignee.
 
 ### Before You Start
 
-1. Read the issue description carefully and understand the expected changes.
-2. Check whether the issue is already assigned or has an active pull request.
-3. Comment on the issue to discuss your proposed approach before starting work.
-4. Read the [contribution guidelines](CONTRIBUTING.md) and follow the project's workflow.
-5. Test your changes and submit a pull request with a clear description.
+1. Read the issue description and acceptance criteria carefully.
+2. Check the **Assignees** field, linked pull requests, and recent comments to confirm nobody is already working on the issue.
+3. Comment on the issue to introduce yourself and outline your proposed approach before starting work.
+4. Follow the workflow in [CONTRIBUTING.md](CONTRIBUTING.md) (fork, branch, commit, and open a pull request).
+5. Test your changes locally in the browser and include a clear summary in your pull request.
 
 ## Roadmap
 
@@ -260,31 +265,33 @@ This roadmap separates completed improvements from potential future enhancements
 
 ### Recently Completed
 
-- [x] [Improve copy feedback and clipboard error handling (#39)](https://github.com/edulinkup-interns/resume-json-generator/issues/39) – Consistent feedback for JSON and plain-text copying, with graceful clipboard failure handling. Completed in [PR #81](https://github.com/edulinkup-interns/resume-json-generator/pull/81).
+- [x] [Improve copy feedback and clipboard error handling (#39)](https://github.com/edulinkup-interns/resume-json-generator/issues/39) – Consistent feedback for JSON and plain-text copying, with graceful clipboard failure handling ([PR #81](https://github.com/edulinkup-interns/resume-json-generator/pull/81)).
+- [x] [Toolbar keyboard accessibility](https://github.com/edulinkup-interns/resume-json-generator/pull/79) – Improved keyboard navigation support for toolbar actions ([PR #79](https://github.com/edulinkup-interns/resume-json-generator/pull/79)).
+- [x] [Invalid export blocking and draft safety](https://github.com/edulinkup-interns/resume-json-generator/pull/76) – Blocked invalid exports, handled malformed drafts safely, and added pasted phone number splitting ([PR #76](https://github.com/edulinkup-interns/resume-json-generator/pull/76)).
+- [x] [Accessible input validation feedback](https://github.com/edulinkup-interns/resume-json-generator/pull/75) – Added accessible validation feedback for form fields ([PR #75](https://github.com/edulinkup-interns/resume-json-generator/pull/75)).
 
 ### Future Ideas
 
-The following improvements have been identified as possible areas for future development:
+The following improvements are proposed areas for future exploration:
 
-**Resume Customization**
+#### Resume Customization
 - Resume templates and customization options.
 - Importing existing resume data.
 
-**Export and Integration**
+#### Export and Integration
 - PDF export alongside JSON downloads.
 - Additional export formats and integrations.
 
-**Storage and Accessibility**
+#### Storage, Validation, and Accessibility
 - Optional cloud storage and synchronization.
-- Improved accessibility and keyboard navigation.
+- Additional accessibility and keyboard navigation improvements.
 - More comprehensive JSON validation.
 
-Have another idea? Open a [GitHub Issue](https://github.com/edulinkup-interns/resume-json-generator/issues) to discuss a potential improvement.
+Have another idea? Open an issue on [GitHub Issues](https://github.com/edulinkup-interns/resume-json-generator/issues) to discuss a potential improvement.
 
 ## Contributing
 
-Issues and pull requests for bug fixes, usability improvements, and additional export formats are welcome.
-
+Issues and pull requests for bug fixes, usability improvements, and additional export formats are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for setup and pull request guidelines.
 
 ## License
 
